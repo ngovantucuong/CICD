@@ -9,9 +9,9 @@ workflows:
       #   - ios_config # <-- (Includes APP_STORE_APP_ID)
        # Add the group environment variables in Codemagic UI (either in Application/Team variables) - https://docs.codemagic.io/variables/environment-variable-groups/
       # vars:
-      #   XCODE_PROJECT: "CICD.xcodeproj"  # PUT YOUR WORKSPACE NAME HERE
-      #   XCODE_SCHEME: "CICD" # PUT THE NAME OF YOUR SCHEME HERE
-      #   # BUILD_NUMBER: 1
+        XCODE_PROJECT: "CICD.xcodeproj"  # PUT YOUR WORKSPACE NAME HERE
+        XCODE_SCHEME: "CICD" # PUT THE NAME OF YOUR SCHEME HERE
+        BUILD_NUMBER: 1
       xcode: latest
       # cocoapods: default
     scripts:
@@ -41,19 +41,19 @@ workflows:
       # - name: Add certificates to keychain
       #   script: |
       #               keychain add-certificates 
-      # - name: Increment build number
-      #   script: |
-      #     # increment build number
-      #     #!/bin/sh
-      #     set -e
-      #     set -x
-      #     cd $FCI_BUILD_DIR
-      #     agvtool new-version -all $(($BUILD_NUMBER +1))
+      - name: Increment build number
+        script: |
+          # increment build number
+          #!/bin/sh
+          set -e
+          set -x
+          cd $FCI_BUILD_DIR
+          agvtool new-version -all $(($BUILD_NUMBER +1))
       - name: Set up code signing settings on Xcode project
         script: xcode-project use-profiles
       - name: Build ipa for distribution
         script: |
-          xcode-project build-ipa --project "CICD.xcodeproj" --scheme "CICD"
+          xcode-project build-ipa --project "$XCODE_PROJECT" --scheme "$XCODE_SCHEME"
     artifacts:
       - build/ios/ipa/*.ipa
       - /tmp/xcodebuild_logs/*.log
