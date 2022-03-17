@@ -53,7 +53,7 @@ workflows:
         script: xcode-project use-profiles
       - name: Build ipa for distribution
         script: |
-          xcode-project build-ipa --project /Users/er_macbook_225/Documents/CICD/CICD/CICD.xcodeproj --scheme CICD
+          xcode-project build-ipa --project "CICD.xcodeproj" --scheme "CICD"
     artifacts:
       - build/ios/ipa/*.ipa
       - /tmp/xcodebuild_logs/*.log
