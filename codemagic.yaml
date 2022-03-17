@@ -10,7 +10,7 @@ workflows:
       vars:
         XCODE_PROJECT: "CICD.xcodeproj"  # PUT YOUR WORKSPACE NAME HERE
         XCODE_SCHEME: "CICD" # PUT THE NAME OF YOUR SCHEME HERE
-        BUILD_NUMBER: 1
+        # BUILD_NUMBER: 1
       xcode: latest
       cocoapods: default
     scripts:
