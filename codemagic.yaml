@@ -10,7 +10,7 @@ workflows:
       vars:
         XCODE_PROJECT: "CICD.xcodeproj"  # PUT YOUR WORKSPACE NAME HERE
         XCODE_SCHEME: "CICD" # PUT THE NAME OF YOUR SCHEME HERE
-        # BUILD_NUMBER: 1
+        BUILD_NUMBER: 1
       xcode: latest
       cocoapods: default
     scripts:
@@ -41,7 +41,13 @@ workflows:
       #   script: |
       #               keychain add-certificates 
       - name: Increment build number
-        script: agvtool new-version -all $(($BUILD_NUMBER +1))
+        script: |
+          # increment build number
+          #!/bin/sh
+          set -e
+          set -x
+          cd ./ios
+          agvtool new-version -all $(($BUILD_NUMBER +1))
       - name: Set up code signing settings on Xcode project
         script: xcode-project use-profiles
       - name: Build ipa for distribution
