@@ -52,10 +52,11 @@ workflows:
       - name: Set up code signing settings on Xcode project
         script: xcode-project use-profiles
       - name: Build ipa for distribution
-        script: xcode-project build-ipa --project "CICD.xcodeproj" --scheme "CICD"
+        script: |
+          xcode-project build-ipa --project "CICD.xcodeproj" --scheme "CICD"
     artifacts:
       - build/ios/ipa/*.ipa
-      - $HOME/Library/tmp/xcodebuild_logs/*.log
+      - /tmp/xcodebuild_logs/*.log
       - $HOME/Library/Developer/Xcode/DerivedData/**/Build/**/*.dSYM
     # publishing:
     #   app_store_connect:
