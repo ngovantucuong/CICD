@@ -1,6 +1,7 @@
 workflows:
   ios-workflow:
     name: ios_workflow
+    instance_type: mac_pro
     environment:
       groups:
         - certificate_credentials
@@ -51,10 +52,10 @@ workflows:
       - name: Set up code signing settings on Xcode project
         script: xcode-project use-profiles
       - name: Build ipa for distribution
-        script: xcode-project build-ipa --project /Users/er_macbook_225/Documents/CICD/CICD/CICD.xcodeproj --scheme CICD
+        script: xcode-project build-ipa --project "CICD.xcodeproj" --scheme "CICD"
     artifacts:
       - build/ios/ipa/*.ipa
-      - /tmp/xcodebuild_logs/*.log
+      - /Users/er_macbook_225/Documents/tmp/xcodebuild_logs/*.log
       - $HOME/Library/Developer/Xcode/DerivedData/**/Build/**/*.dSYM
     # publishing:
     #   app_store_connect:
