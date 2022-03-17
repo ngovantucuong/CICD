@@ -1,7 +1,7 @@
 workflows:
   ios-workflow:
     name: ios_workflow
-    instance_type: mac_pro
+    # instance_type: mac_pro
     environment:
       groups:
         - certificate_credentials
