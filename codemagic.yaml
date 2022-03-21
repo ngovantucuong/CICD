@@ -80,7 +80,7 @@ workflows:
                   --group Collaborators \
                   --file "${ipaPath}" \
                   --release-notes 'App submission via Codemagic' \
-                  --app <username_or_organization>/<application_identifier> \
+                  --app cuongnvt-tech.est-rouge.com \
                   --token "${APP_CENTER_TOKEN}" \
                   --quiet
           fi
