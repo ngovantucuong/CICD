@@ -54,6 +54,30 @@ workflows:
       - name: Build ipa for distribution
         script: |
           xcode-project build-ipa --project "$XCODE_PROJECT" --scheme "$XCODE_SCHEME"
+      - name: Publish app artifacts to App Center
+        script: |
+          #!/usr/bin/env zsh
+
+          echo 'Installing App Center CLI tools'
+          npm install -g appcenter-cli
+
+          echo "Find build artifacts"
+          ipaPath=$(find ~/ipas -name "*.ipa" | head -1)
+          echo "Found ipa at $ipaPath"
+
+          if [[ -z ${ipaPath} ]]
+          then
+              echo "No ipas were found, skip publishing to App Center"
+          else
+              echo "Publishing $ipaPath to App Center"
+              appcenter distribute release \
+                  --group Collaborators \
+                  --file "${ipaPath}" \
+                  --release-notes 'App submission via Codemagic' \
+                  --app <username_or_organization>/<application_identifier> \
+                  --token "${APP_CENTER_TOKEN}" \
+                  --quiet
+          fi
     artifacts:
       - build/ios/ipa/*.ipa
       - /tmp/xcodebuild_logs/*.log
