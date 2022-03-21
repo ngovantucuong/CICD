@@ -68,7 +68,7 @@ workflows:
           npm install -g appcenter-cli
 
           echo "Find build artifacts"
-          ipaPath=$(find ~/ipas -name "*.ipa" | head -1)
+          ipaPath=$(find build/ios/ipa -name "*.ipa" | head -1)
           echo "Found ipa at $ipaPath"
 
           if [[ -z ${ipaPath} ]]
