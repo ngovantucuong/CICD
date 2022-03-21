@@ -54,6 +54,12 @@ workflows:
       - name: Build ipa for distribution
         script: |
           xcode-project build-ipa --project "$XCODE_PROJECT" --scheme "$XCODE_SCHEME"
+    artifacts:
+      - build/ios/ipa/*.ipa
+      - /tmp/xcodebuild_logs/*.log
+      - $HOME/Library/Developer/Xcode/DerivedData/**/Build/**/*.dSYM
+    publishing:
+     scripts:
       - name: Publish app artifacts to App Center
         script: |
           #!/usr/bin/env zsh
@@ -78,10 +84,7 @@ workflows:
                   --token "${APP_CENTER_TOKEN}" \
                   --quiet
           fi
-    artifacts:
-      - build/ios/ipa/*.ipa
-      - /tmp/xcodebuild_logs/*.log
-      - $HOME/Library/Developer/Xcode/DerivedData/**/Build/**/*.dSYM
+
     # publishing:
     #   app_store_connect:
     #     api_key: $APP_STORE_CONNECT_PRIVATE_KEY      # Contents of the API key
